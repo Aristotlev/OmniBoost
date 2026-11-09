@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1020"/>
+      <stop offset="1" stop-color="#05060b"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2ee6d6"/>
+      <stop offset="0.5" stop-color="#4f8cff"/>
+      <stop offset="1" stop-color="#a35cff"/>
+    </linearGradient>
+    <linearGradient id="bolt" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#bfe9ff"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="22" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="40" y="40" width="944" height="944" rx="220" fill="url(#bg)"/>
+  <rect x="40" y="40" width="944" height="944" rx="220" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="6"/>
+  <circle cx="512" cy="512" r="290" fill="none" stroke="url(#ring)" stroke-width="78" stroke-linecap="round" stroke-dasharray="1500 322" transform="rotate(-62 512 512)" filter="url(#glow)"/>
+  <path d="M560 250 L372 548 H500 L452 774 L660 456 H528 Z" fill="url(#bolt)" filter="url(#glow)"/>
+</svg>
