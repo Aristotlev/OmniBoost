@@ -1,0 +1,59 @@
+# Builds the Windows installer for every version tag (v*) and publishes it as a
+# GitHub release, plus a fixed-name copy that the download buttons point at.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+
+      - run: npm ci
+
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: v__VERSION__
+          releaseName: OmniBoost v__VERSION__
+          releaseBody: |
+            **Download:** [Windows](https://github.com/Aristotlev/OmniBoost/releases/latest/download/OmniBoost-Windows.exe)
+
+            Windows 10 (22H2) and Windows 11, 64-bit.
+
+            Run OmniBoost-Windows.exe. If you see "Windows protected your PC", click More info, then Run anyway. OmniBoost asks for administrator permission because it changes Windows settings: click Yes.
+
+            Every change OmniBoost makes is saved, so one click undoes all of it.
+          releaseDraft: false
+          prerelease: false
+          args: --bundles nsis
+
+      # Same file under a name that never changes, so the download buttons always get the latest version.
+      - name: Attach fixed-name download
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=$(node -p "require('./src-tauri/tauri.conf.json').version")
+          SRC=$(ls src-tauri/target/release/bundle/nsis/*-setup.exe | head -n1)
+          cp "$SRC" OmniBoost-Windows.exe
+          gh release upload "v$VERSION" OmniBoost-Windows.exe --clobber -R "${{ github.repository }}"

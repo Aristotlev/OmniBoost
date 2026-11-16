@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OmniBoost: one click to a faster PC</title>
+  <meta name="description" content="OmniBoost scans your Windows PC, finds what slows it down and applies 37 reversible optimizations for gaming and work. Free for Windows 10 and 11." />
+  <link rel="icon" href="icon.png" />
+  <style>
+    :root { --bg: #07080d; --surface: #0f121b; --border: #1d2232; --text: #e9edf6; --muted: #8b93a7; --grad: linear-gradient(100deg, #2ee6d6 0%, #4f8cff 50%, #a35cff 100%); color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: radial-gradient(900px 500px at 15% -10%, rgba(79,140,255,.18), transparent 60%), radial-gradient(800px 500px at 100% 0%, rgba(163,92,255,.12), transparent 60%), var(--bg); color: var(--text); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    main { max-width: 920px; margin: 0 auto; padding: 72px 24px 56px; }
+    .brand { display: flex; align-items: center; gap: 14px; font-weight: 700; font-size: 22px; }
+    .brand img { width: 52px; height: 52px; }
+    h1 { font-size: clamp(34px, 6vw, 54px); line-height: 1.08; letter-spacing: -1px; margin: 40px 0 16px; }
+    .lead { font-size: 19px; color: var(--muted); max-width: 640px; margin: 0 0 34px; }
+    .dl { display: flex; flex-wrap: wrap; gap: 12px; }
+    .dl a { display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px; border-radius: 12px; background: var(--grad); color: #fff; font-weight: 650; text-decoration: none; }
+    .small { color: var(--muted); font-size: 14px; margin-top: 14px; max-width: 720px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 64px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px; }
+    .card h3 { margin: 0 0 6px; font-size: 17px; }
+    .card p { margin: 0; color: var(--muted); font-size: 15px; }
+    footer { margin-top: 64px; color: var(--muted); font-size: 14px; }
+    footer a { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="brand"><img src="icon.png" alt="" />OmniBoost</div>
+    <h1>One click to<br />a faster PC.</h1>
+    <p class="lead">OmniBoost scans your PC, finds what slows it down and applies 37 optimizations for gaming and work. You see every change as it happens, and one click undoes all of it.</p>
+    <div class="dl">
+      <a href="https://github.com/Aristotlev/OmniBoost/releases/latest/download/OmniBoost-Windows.exe">Download for Windows</a>
+    </div>
+    <p class="small">Free. Windows 10 (22H2) and Windows 11, 64-bit.</p>
+    <p class="small"><b>First launch.</b> If you see "Windows protected your PC", click More info, then Run anyway. OmniBoost asks for administrator permission because it changes Windows settings: click Yes, then Boost my PC.</p>
+    <div class="grid">
+      <div class="card"><h3>Health check</h3><p>Temperatures, RAM setup, graphics card speed, drive health and outdated drivers.</p></div>
+      <div class="card"><h3>Faster games</h3><p>Power, CPU, graphics, display and network settings tuned for FPS and low latency.</p></div>
+      <div class="card"><h3>Less clutter</h3><p>Startup apps, background apps, telemetry, temp files and caches cleaned up.</p></div>
+      <div class="card"><h3>Fully reversible</h3><p>Every original setting is saved. One click puts everything back.</p></div>
+    </div>
+    <footer>
+      <a href="https://github.com/Aristotlev/OmniBoost">Source on GitHub</a> · <a href="https://github.com/Aristotlev/OmniBoost/issues">Report a problem</a>
+    </footer>
+  </main>
+</body>
+</html>
