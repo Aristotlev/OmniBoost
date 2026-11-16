@@ -58,7 +58,7 @@
   },
   "plugins": {
     "updater": {
-      "pubkey": "SET_BY_PUBLISH_SCRIPT",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDg5RUREMjFFNzVGMjQwRjMKUldUelFQSjFIdEx0aVdjV3FXdE1Nd0ozaTVpUFhPbWZoL0V1WWExL0xGTDU3TG8rSmVySmVYUGoK",
       "endpoints": [
         "https://github.com/Aristotlev/OmniBoost/releases/latest/download/latest.json"
       ],
