@@ -25,22 +25,45 @@
         "backgroundColor": "#07080d"
       }
     ],
-    "security": { "csp": null }
+    "security": {
+      "csp": null
+    }
   },
   "bundle": {
     "active": true,
-    "targets": ["nsis"],
+    "targets": [
+      "nsis"
+    ],
     "publisher": "OmniFolio",
     "copyright": "OmniFolio",
     "category": "Utility",
     "shortDescription": "One-click Windows performance optimizer",
     "longDescription": "OmniBoost scans your PC, finds hardware problems and applies reversible Windows, GPU, display, network and storage optimizations for maximum FPS.",
-    "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.ico"],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.ico"
+    ],
     "windows": {
-      "webviewInstallMode": { "type": "downloadBootstrapper" },
+      "webviewInstallMode": {
+        "type": "downloadBootstrapper"
+      },
       "nsis": {
         "installMode": "perMachine",
         "displayLanguageSelector": false
+      }
+    },
+    "createUpdaterArtifacts": true
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "SET_BY_PUBLISH_SCRIPT",
+      "endpoints": [
+        "https://github.com/Aristotlev/OmniBoost/releases/latest/download/latest.json"
+      ],
+      "windows": {
+        "installMode": "passive"
       }
     }
   }

@@ -1,5 +1,6 @@
-# Builds the Windows installer for every version tag (v*) and publishes it as a
-# GitHub release, plus a fixed-name copy that the download buttons point at.
+# Builds the signed Windows installer for every version tag (v*) and publishes it
+# as a GitHub release with latest.json, which installed copies read to update
+# themselves, plus a fixed-name copy that the download buttons point at.
 name: Release
 
 on:
@@ -32,6 +33,8 @@ jobs:
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
           tagName: v__VERSION__
           releaseName: OmniBoost v__VERSION__
@@ -43,8 +46,11 @@ jobs:
             Run OmniBoost-Windows.exe. If you see "Windows protected your PC", click More info, then Run anyway. OmniBoost asks for administrator permission because it changes Windows settings: click Yes.
 
             Every change OmniBoost makes is saved, so one click undoes all of it.
+
+            Already installed? OmniBoost updates itself.
           releaseDraft: false
           prerelease: false
+          includeUpdaterJson: true
           args: --bundles nsis
 
       # Same file under a name that never changes, so the download buttons always get the latest version.

@@ -1,19 +1,20 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Minus, RefreshCw, Square, X } from "lucide-react";
+import { Download, Minus, RefreshCw, Square, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import logo from "./logo.png";
 import { BoostModal } from "./components/BoostModal";
 import { Games, Hardware, Hero, Issues, LiveStats } from "./components/Dashboard";
 import { backupCount, lastRun, onMonitor, scanSystem, windowAction } from "./lib/api";
 import type { LastRun, MonTick, Scan } from "./lib/types";
+import { appVersion, checkForUpdate, type PendingUpdate } from "./lib/updates";
 
-function TitleBar() {
+function TitleBar({ version }: { version: string }) {
   return (
     <div className="titlebar" data-tauri-drag-region>
       <div className="brand" data-tauri-drag-region>
         <img src={logo} alt="" />
         OmniBoost
-        <span className="tag">v1.0.2</span>
+        {version && <span className="tag">v{version}</span>}
       </div>
       <div className="drag" data-tauri-drag-region />
       <button className="wc" onClick={() => windowAction("minimize")} aria-label="Minimize"><Minus size={16} /></button>
@@ -33,6 +34,31 @@ export default function App() {
   const [backups, setBackups] = useState(0);
   const [rescanning, setRescanning] = useState(false);
   const started = useRef(false);
+  const [version, setVersion] = useState("");
+  const [update, setUpdate] = useState<PendingUpdate | null>(null);
+  const [updatePct, setUpdatePct] = useState<number | null>(null);
+  const [updateError, setUpdateError] = useState("");
+
+  // Check for a new version on launch and every 6 hours.
+  useEffect(() => {
+    appVersion().then(setVersion).catch(() => {});
+    const check = () => checkForUpdate().then((u) => u && setUpdate(u)).catch(() => {});
+    check();
+    const t = setInterval(check, 6 * 60 * 60 * 1000);
+    return () => clearInterval(t);
+  }, []);
+
+  const installUpdate = async () => {
+    if (!update) return;
+    setUpdateError("");
+    setUpdatePct(0);
+    try {
+      await update.install(setUpdatePct);
+    } catch (e) {
+      setUpdatePct(null);
+      setUpdateError(String(e));
+    }
+  };
 
   const doScan = useCallback(async (quiet = false) => {
     if (quiet) setRescanning(true);
@@ -60,7 +86,7 @@ export default function App() {
 
   return (
     <div className="app">
-      <TitleBar />
+      <TitleBar version={version} />
       {!scan ? (
         <div className="splash">
           <div className="inner">
@@ -82,6 +108,16 @@ export default function App() {
         </div>
       ) : (
         <div className="main">
+          {update && (
+            <div className="banner update">
+              <Download size={18} />
+              <div className="grow">
+                <b>{updatePct === null ? `OmniBoost ${update.version} is available` : `Installing OmniBoost ${update.version}… ${updatePct}%`}</b>
+                <span>{updateError ? `Update failed: ${updateError}` : updatePct === null ? "Your settings and undo history are kept." : "OmniBoost restarts by itself."}</span>
+              </div>
+              {updatePct === null && <button className="btn-sm" onClick={installUpdate}>Update now</button>}
+            </div>
+          )}
           <div className="grid">
             <div className="col">
               <Hero scan={scan} backups={backups} last={last} onBoost={() => setModal("boost")} onResume={() => setModal("resume")} onUndo={() => setModal("revert")} />

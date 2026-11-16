@@ -6,7 +6,7 @@
   <a href="https://github.com/Aristotlev/OmniBoost/releases/latest/download/OmniBoost-Windows.exe"><b>⬇ Download for Windows</b></a>
 </p>
 
-Windows 10 (22H2) and Windows 11, 64-bit. Free.
+Windows 10 (22H2) and Windows 11, 64-bit. Free. Once installed, OmniBoost updates itself.
 
 ## What you get
 
@@ -37,6 +37,11 @@ OmniBoost saves the original value of every setting it changes, and by default c
 Everything stays on your PC. OmniBoost has no accounts, no servers and no analytics.
 
 [Report a problem](https://github.com/Aristotlev/OmniBoost/issues)
+
+## FAQ
+
+**How do updates work?**
+OmniBoost checks for a new version when it opens and every 6 hours, and installs it in one click. Your undo history is kept.
 
 ---
 
@@ -73,7 +78,9 @@ Bump the version in `package.json`, `src-tauri/tauri.conf.json` and `src-tauri/C
     git tag v1.0.3
     git push origin v1.0.3
 
-GitHub Actions (`.github/workflows/release.yml`) builds the installer on `windows-latest`, publishes the release, and attaches the fixed-name download `OmniBoost-Windows.exe` that the download button points at.
+GitHub Actions (`.github/workflows/release.yml`) builds the signed installer on `windows-latest`, publishes the release with `latest.json` for the updater, and attaches the fixed-name download `OmniBoost-Windows.exe` that the download button points at. Installed copies (1.0.2 and newer) update themselves.
+
+The update signing key is `~/.tauri/omniboost.key` (password in `~/.tauri/omniboost.key.password`), also saved as the repo secrets `TAURI_SIGNING_PRIVATE_KEY` and `TAURI_SIGNING_PRIVATE_KEY_PASSWORD`. Back it up: without it, installed copies can't verify new updates.
 
 ### Architecture
 

@@ -339,3 +339,4 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
 .btn-resume { height: 34px; padding: 0 14px; border-radius: 10px; font-weight: 650; font-size: 13px; background: rgba(251, 191, 36, 0.1); border: 1px solid rgba(251, 191, 36, 0.35); color: #fcd34d; display: inline-flex; align-items: center; gap: 7px; }
 .btn-resume:hover { background: rgba(251, 191, 36, 0.16); }
 .btn-ghost:disabled { opacity: 0.6; cursor: progress; }
+.banner.update { max-width: 1500px; margin: 0 auto 18px; background: linear-gradient(90deg, rgba(79, 140, 255, 0.14), rgba(163, 92, 255, 0.05)); border-color: rgba(79, 140, 255, 0.35); }
